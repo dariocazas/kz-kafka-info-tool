@@ -33,7 +33,7 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
-      - run: mkdir staging1 && cp target/*-shaded.jar staging
+      - run: mkdir staging1 && cp target/*-shaded.jar staging1
 
       - uses: actions/upload-artifact@v2
         with:
