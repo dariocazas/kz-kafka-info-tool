@@ -33,9 +33,8 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
-      - run: mkdir staging1 && cp target/*-shaded.jar staging1
-
+      - run: mkdir staging_with-deps && cp target/*-shaded.jar staging_with-deps
       - uses: actions/upload-artifact@v2
         with:
-          name: Package-shaded
-          path: staging1
+          name: kz-kafka-info-tool_with-deps
+          path: staging_with-deps
