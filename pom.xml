@@ -25,6 +25,8 @@
         <lombok.version>1.18.20</lombok.version>
         <picocli.version>4.6.1</picocli.version>
         <slf4j.version>1.7.30</slf4j.version>
+
+        <main.class.name>com.dkzas.kafka.info.App</main.class.name>
     </properties>
 
     <dependencies>
@@ -94,7 +96,7 @@
                                         implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.dkzas.kafka.info.App</mainClass>
+                                    <mainClass>${main.class.name}</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
@@ -122,6 +124,21 @@
                     <compilerArgs>
                         <arg>-Aproject=${project.groupId}/${project.artifactId}</arg>
                     </compilerArgs>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>${main.class.name}</mainClass>
                 </configuration>
             </plugin>
         </plugins>
