@@ -1,3 +1,7 @@
+# kz-kafka-info-tool
+
+[![Java CI with Maven](https://github.com/dariocazas/kz-kafka-info-tool/actions/workflows/maven.yml/badge.svg)](https://github.com/dariocazas/kz-kafka-info-tool/actions/workflows/maven.yml)
+
 This tool provides basic kafka info
 
 ## Build
@@ -24,6 +28,19 @@ Info tool for Kafka
 Commands:
   partition_offset  Get partition offsets from topic
 ```
+
+### Log level
+
+You can change the log level adding `-Dorg.slf4j.simpleLogger.defaultLogLevel=debug` to config slf4j
+
+### Subcommand `partition_offset`
+
+This command retrieve as standard output one line per partition with this info:
+```csv
+<topic-name:string>,<partition-number:int>,<last-offset:long>
+```
+
+You can check the parameter list using this command:
 
 ```sh
 ❯ java -cp target/kz-kafka-info-tool-1.0.0-shaded.jar com.dkzas.kafka.info.App partition_offset -h
@@ -52,7 +69,6 @@ Exit Codes:
 The parameters `--bootstrap-servers` and `--command-config` are the same at used by official Kafka scripts like 
 `kafka-topics.sh` or `kafka-topics.sh`.
 
-You can change the log level adding `-Dorg.slf4j.simpleLogger.defaultLogLevel=debug` to config slf4j
 
 ## Usage with maven
 
