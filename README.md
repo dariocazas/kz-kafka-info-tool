@@ -69,6 +69,53 @@ Exit Codes:
 The parameters `--bootstrap-servers` and `--command-config` are the same at used by official Kafka scripts like 
 `kafka-topics.sh` or `kafka-topics.sh`.
 
+### Subcommand `partition_size`
+
+Actually, the command only run using the output of `kafka-log-dirs.sh` script as imput.
+
+The standard output only prints the CVS results, using standard error for log.
+
+Support serveral parameters to group the size as:
+
+```shell
+$ kafka-log-dirs.sh --bootstrap-server $BROKERS --command-config $COMMAND_CONFIG --describe |  java -cp target/kz-kafka-info-tool-1.0.0-shaded.jar com.dkzas.kafka.info.App partition_size --from-stdin  --print-header
+topic_name,partition_index,broker,size
+__consumer_offsets,0,1,0
+__consumer_offsets,0,2,0
+__consumer_offsets,0,3,0
+__consumer_offsets,1,2,0
+__consumer_offsets,1,3,0
+__consumer_offsets,1,4,0
+__consumer_offsets,2,1,0
+__consumer_offsets,2,2,0
+__consumer_offsets,2,4,0
+__consumer_offsets,3,1,0
+__consumer_offsets,3,3,0
+__consumer_offsets,3,4,0
+__consumer_offsets,4,2,34988
+__consumer_offsets,4,3,34988
+__consumer_offsets,4,4,34988
+__consumer_offsets,5,1,0
+__consumer_offsets,5,2,0
+__consumer_offsets,5,4,0
+(...)
+```
+
+```shell
+$ kafka-log-dirs.sh --bootstrap-server $BROKERS --command-config $COMMAND_CONFIG --describe |  java -cp target/kz-kafka-info-tool-1.0.0-shaded.jar com.dkzas.kafka.info.App partition_size --from-stdin --group-by-topic --print-header
+topic_name,size
+__consumer_offsets,31999566
+__transaction_state,3834
+(...)
+```
+
+```shell
+$ kafka-log-dirs.sh --bootstrap-server $BROKERS --command-config $COMMAND_CONFIG --describe |  java -cp target/kz-kafka-info-tool-1.0.0-shaded.jar com.dkzas.kafka.info.App partition_size --from-stdin --group-by-topic --group-by-broker --print-header
+ topic_name,broker_1_size,broker_2_size,broker_3_size,broker_4_size
+__consumer_offsets,10593737,127078,10669942,10638590
+__transaction_state,852,1065,852,1065
+(...)
+```
 
 ## Usage with maven
 
